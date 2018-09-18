@@ -82,6 +82,60 @@ int fillsingle(int arr[13][13],int orient)		//search 1x2 space and fill it
 	return -1;
 }
 
+int bombmove(int arr[13][13],int orient)
+{
+	int i,j,flag,x,y;
+	for(x=0;x<9;x++)
+	{
+		for(y=0;y<9;y++)
+		{
+			flag=0;
+			for(i=x;i<x+5;i++)
+			{
+				for(j=y;j<y+5;j++)
+				{
+					if(arr[i][j]==1&&arr[i][j+1]==1)
+						j++;
+					else if(arr[i][j]==1&&arr[i][j+1]!=1)
+					{
+						flag=-1;
+					}
+			
+				}
+			}
+
+			for(i=x;i<x+5;i++)
+			{
+				for(j=y;j<y+5;j++)
+				{
+					if(arr[j][i]==2&&arr[j][i+1]==2)
+						j++;
+					else if(arr[j][i]==2&&arr[j][i+1]!=2)
+					{
+						flag=-1;
+					}
+			
+				}
+			}
+
+			if(flag==0&&orient==1)
+			{
+				type=2;
+				movei=j;
+				movej=i;
+			}
+			else if(flag==0&&orient==2)
+			{
+				type=2;
+				movei=i;
+				movej=j;
+			}
+		}
+	}
+
+	return flag;
+}
+
 int main()
 {
 	int orient,arr[13][13]={0},bomb,i,j,move,prior;	//orient=Orientation,bomb=bomb move left
@@ -97,6 +151,8 @@ int main()
 	prior=boxmove(arr,orient);
 	if(prior==-1)
 	prior=fillsingle(arr,orient);
+	if(prior==-1)
+	prior=bombmove(arr,orient);
 	printf("%d %d %d",type,movei,movej);
 	return 0;
 }
