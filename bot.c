@@ -26,7 +26,7 @@ void display(int arr[13][13])
 	}
 }
 
-void boxmove(int arr[13][13],int orient)	//search for 4x4 space and fill 2 spcae securing 2 space
+int boxmove(int arr[13][13],int orient)	//search for 4x4 space and fill 2 spcae securing 2 space
 {
 	int i,j;
 	for(i=0;i<12;i++)
@@ -47,13 +47,14 @@ void boxmove(int arr[13][13],int orient)	//search for 4x4 space and fill 2 spcae
 					movei=i;
 					movej=j+1;
 				}
-				return;
+				return 0;
 			}
 		}
 	}
+	return -1;
 }
 
-void fillsingle(int arr[13][13],int orient)		//search 1x2 space and fill it
+int fillsingle(int arr[13][13],int orient)		//search 1x2 space and fill it
 {
 	int i,j;
 	for(i=0;i<13;i++)
@@ -74,15 +75,16 @@ void fillsingle(int arr[13][13],int orient)		//search 1x2 space and fill it
 					movei=i;
 					movej=j;
 				}
-				return;
+				return 0;
 			}
 		}
 	}
+	return -1;
 }
 
 int main()
 {
-	int orient,arr[13][13]={0},bomb,i,j,move;	//orient=Orientation,bomb=bomb move left
+	int orient,arr[13][13]={0},bomb,i,j,move,prior;	//orient=Orientation,bomb=bomb move left
 	scanf("%d",&orient);
 	for(i=0;i<13;i++)
 		for(j=0;j<13;j++)
@@ -92,8 +94,9 @@ int main()
 	if(orient==1)							//for playing always vertical
 		transpose(arr);
 
-	//boxmove(arr,orient);
-	fillsingle(arr,orient);
+	prior=boxmove(arr,orient);
+	if(prior==-1)
+	prior=fillsingle(arr,orient);
 	printf("%d %d %d",type,movei,movej);
 	return 0;
 }
