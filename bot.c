@@ -1,5 +1,7 @@
 #include<stdio.h>
 
+int type,movei,movej;
+
 void swap(int *a,int *b)
 {
 	*a^=*b^=*a^=*b;
@@ -34,9 +36,17 @@ void boxmove(int arr[13][13],int orient)	//search for 4x4 space and fill 2 spcae
 			if(arr[i][j]==0&&arr[i+1][j]==0&&arr[i][j+1]==0&&arr[i+1][j+1]==0)
 			{
 				if(orient==1)
-					printf("%d %d %d",1,j+1,i);
+				{
+					type=1;
+					movei=j+1;
+					movej=i;
+				}
 				else
-					printf("%d %d %d",1,i,j+1);
+				{
+					type=1;
+					movei=i;
+					movej=j+1;
+				}
 				return;
 			}
 		}
@@ -56,5 +66,6 @@ int main()
 		transpose(arr);
 
 	boxmove(arr,orient);
+	printf("%d %d %d",type,movei,movej);
 	return 0;
 }
