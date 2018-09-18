@@ -9,7 +9,7 @@ void transpose(int arr[13][13])				//so that we will play always vertial
 {
 	int i,j;
 	for(i=0;i<13;i++)
-		for(j=i;j<13;j++)
+		for(j=i+1;j<13;j++)
 			swap(&arr[i][j],&arr[j][i]);
 }
 
@@ -24,7 +24,7 @@ void display(int arr[13][13])
 	}
 }
 
-void boxmove(int arr[13][13],int orient)
+void boxmove(int arr[13][13],int orient)	//search for 4x4 space and fill 2 spcae securing 2 space
 {
 	int i,j;
 	for(i=0;i<12;i++)
